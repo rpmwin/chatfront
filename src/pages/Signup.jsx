@@ -9,7 +9,7 @@ function Signup() {
     const registerUser = async (e) => {
         try {
             const response = await toast.promise(
-                axios.post("http://localhost:3232/api/v1/user/signup", user),
+                axios.post("https://chatback-ryc1.onrender.com/api/v1/user/signup", user),
                 {
                     pending: "Registering User",
                     success: "User Registered Successfully",

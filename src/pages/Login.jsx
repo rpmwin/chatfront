@@ -8,9 +8,13 @@ function Login() {
     const loginUser = async (e) => {
         try {
             const response = await toast.promise(
-                axios.post("http://localhost:3232/api/v1/user/login", user, {
-                    withCredentials: true,
-                }),
+                axios.post(
+                    "https://chatback-ryc1.onrender.com/api/v1/user/login",
+                    user,
+                    {
+                        withCredentials: true,
+                    }
+                ),
                 {
                     pending: "logging User",
                     success: "User logged in Successfully",

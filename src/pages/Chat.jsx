@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Chat() {
-    const socket = useMemo(() => io("http://localhost:3232"), []);
+    const socket = useMemo(() => io("https://chatback-ryc1.onrender.com"), []);
     const [allusers, setallusers] = useState([]);
     const [message, setmessage] = useState("");
     const [selectedUser, setSelectedUser] = useState({});
@@ -17,7 +17,7 @@ function Chat() {
         const getuserinfo = async () => {
             try {
                 const response = await axios.post(
-                    "http://localhost:3232/api/v1/user/userinfo",
+                    "https://chatback-ryc1.onrender.com/api/v1/user/userinfo",
                     { data: "dummydata" },
                     { withCredentials: true }
                 );
@@ -36,7 +36,7 @@ function Chat() {
         const getAllUsers = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3232/api/v1/user/allusers"
+                    "https://chatback-ryc1.onrender.com/api/v1/user/allusers"
                 );
                 setallusers(response.data);
             } catch (error) {
