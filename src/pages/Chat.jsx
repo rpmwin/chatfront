@@ -66,7 +66,9 @@ function Chat() {
 
     // Send a message to the selected user
     const sendMessage = () => {
-        if (!selectedUser._id || !message) return;
+        if (!selectedUser._id || !message) {
+            return toast.error("Please select a user and enter a message");
+        }
         socket.emit("sendMessage", {
             from: user.username,
             to: selectedUser.username,
@@ -96,8 +98,8 @@ function Chat() {
     }, []);
 
     return (
-        <div className="flex">
-            <div className="flex flex-col justify-center items-center border p-3 rounded-lg">
+        <div className="flex flex-col sm:flex-row">
+            <div className="flex flex-col justify-center items-center border p-3 rounded-lg ">
                 <h1>Chat</h1>
                 <label htmlFor="msg">message: </label>
                 <input
@@ -107,13 +109,13 @@ function Chat() {
                     className="border p-3 text-black rounded "
                     placeholder="message"
                 />
-                <label htmlFor="msg">room: </label>
-                <input
-                    type="text"
-                    className="border p-3 text-black rounded "
-                    placeholder="room"
-                />
-                <button onClick={sendMessage}>Send</button>
+
+                <button
+                    onClick={sendMessage}
+                    className="border bg-green-600 px-6 py-4 m-6 rounded-lg font-semibold"
+                >
+                    Send
+                </button>
             </div>
             <div className="flex flex-col justify-center items-center border p-3 rounded-lg">
                 <h1>Chat private:</h1>
