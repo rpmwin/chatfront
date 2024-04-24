@@ -24,6 +24,10 @@ function Login() {
                 })
                 .then((response) => {
                     const token = response.data.token;
+                    console.log("token: ", token);
+                    console.log("response", response);
+                    console.log("response.data: ", response.data);
+                    console.log("response.data.token: ", response.data.token);
                     localStorage.setItem("token", token); // Store in local storage
                     sessionStorage.setItem("token", token);
 
