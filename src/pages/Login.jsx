@@ -7,20 +7,31 @@ function Login() {
 
     const loginUser = async (e) => {
         try {
-            const response = await toast.promise(
-                axios.post(
-                    "https://chatback-ryc1.onrender.com/api/v1/user/login",
-                    user,
+            const response = await toast
+                .promise(
+                    axios.post(
+                        "https://chatback-ryc1.onrender.com/api/v1/user/login",
+                        user
+                    ),
                     {
-                        withCredentials: true,
+                        pending: "Logging In User",
+                        success: "User Logged In Successfully",
+                        error: "Something went wrong in the logging user",
                     }
-                ),
-                {
-                    pending: "logging User",
-                    success: "User logged in Successfully",
-                    error: "Something went wrong in the register user",
-                }
-            );
+                )
+                .then((response) => {
+                    console.log("response", response);
+                })
+                .then((response) => {
+                    const token = response.data.token;
+                    localStorage.setItem("token", token); // Store in local storage
+                    sessionStorage.setItem("token", token);
+
+                    // Set token in headers for subsequent requests
+                    axios.defaults.headers.common[
+                        "Authorization"
+                    ] = `Bearer ${token}`;
+                });
         } catch (error) {
             console.log("something went wrong in the logging user", error);
         }
