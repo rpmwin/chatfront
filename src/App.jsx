@@ -13,7 +13,7 @@ function App() {
 
     return (
         <div className="w-[120vw] min-h-screen h-[120vh] sm:h-screen sm:w-screen bg-slate-900 text-3xl flex justify-center items-center text-white flex-col relative ">
-            <div className="scale-75  text-center">
+            <div className="scale-75  text-center w-screen min-h-screen">
                 <BrowserRouter>
                     <div>
                         <Navbar />

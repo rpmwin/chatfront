@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Router } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,7 +16,11 @@ function Signup() {
                     success: "User Registered Successfully",
                     error: "Something went wrong in the register user",
                 }
-            );
+            ).then((response) => {
+                setTimeout(() => {
+                    Router.push("/login");
+                }, 2000);
+            })
         } catch (error) {
             console.log("something went wrong in the register user", error);
         }

@@ -8,11 +8,17 @@ function Login() {
 
     const loginUser = async (e) => {
         try {
-            await toast.promise(loginRequest(), {
-                pending: "Logging In User",
-                success: "User Logged In Successfully",
-                error: "Something went wrong in the logging user",
-            });
+            await toast
+                .promise(loginRequest(), {
+                    pending: "Logging In User",
+                    success: "User Logged In Successfully",
+                    error: "Something went wrong in the logging user",
+                })
+                .then((response) => {
+                    setTimeout(() => {
+                        Router.push("/login");
+                    }, 2000);
+                });
         } catch (error) {
             console.log("something went wrong in the logging user", error);
         }
