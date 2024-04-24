@@ -11,15 +11,20 @@ function Chat() {
     const [selectedUser, setSelectedUser] = useState({});
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState({});
+    const [token, setToken] = useState(""); // State to store the token
 
     // Fetch user info when component mounts
     useEffect(() => {
         const getuserinfo = async () => {
             try {
+                // Get token from session storage
+                const storedToken = sessionStorage.getItem("token");
+                setToken(storedToken); // Set token in state
+                console.log("Request Headers: ", axios.defaults.headers.common);
                 const response = await axios.post(
                     "https://chatback-ryc1.onrender.com/api/v1/user/userinfo",
-                    { data: "dummydata" },
-                    { withCredentials: true }
+                    { token: storedToken }, // Send token in the request body
+                    { headers: { Authorization: `Bearer ${storedToken}` } } // Include token in headers
                 );
                 setUser(response.data);
                 // Emit the username to the server after fetching user info
@@ -35,8 +40,10 @@ function Chat() {
         // Fetch all users from the backend
         const getAllUsers = async () => {
             try {
+                console.log("Request Headers: ", axios.defaults.headers.common);
                 const response = await axios.get(
-                    "https://chatback-ryc1.onrender.com/api/v1/user/allusers"
+                    "https://chatback-ryc1.onrender.com/api/v1/user/allusers",
+                    { headers: { Authorization: `Bearer ${token}` } } // Include token in headers
                 );
                 setallusers(response.data);
             } catch (error) {
@@ -44,7 +51,7 @@ function Chat() {
             }
         };
         getAllUsers();
-    }, []);
+    }, [token]); // Include token in dependency array
 
     // When a user is selected from the dropdown
     const obtainUsers = (e) => {
@@ -80,9 +87,13 @@ function Chat() {
     }, [messages]);
 
     useEffect(() => {
-        console.log("User: " , user);
+        console.log("User: ", user);
     }, [user]);
 
+    // Log headers in the frontend
+    useEffect(() => {
+        console.log("Headers: ", axios.defaults.headers.common);
+    }, []);
 
     return (
         <div className="flex">
